@@ -21,6 +21,50 @@ Quotesens — это простой сервис для работы с цита
 - #### Для удобства создан index.html, чтобы не отправлять запросы вручную
 - #### Сервер работает по адресу http://localhost:8080, порт меняется в .env
 
+### Тестирование
+- Для удобного тестирования добавлен файл с нужными запросами, запуск:
+- ```bash
+  bash curl.sh
+  ```
+  
+#### Вывод с исходных запросов:
+```bash
+=== POST http://localhost:8080/quotes ===
+Status: 201
+Body:
+
+
+
+=== GET http://localhost:8080/quotes ===
+Status: 200
+Body:
+[{"ID":1,"Author":"Confucius","Quote":"Life is simple, but we insist on making it complicated."}]
+
+
+=== GET http://localhost:8080/quotes/random ===
+Status: 200
+Body:
+{"ID":1,"Author":"Confucius","Quote":"Life is simple, but we insist on making it complicated."}
+
+
+=== GET http://localhost:8080/quotes?author=Confucius ===
+Status: 200
+Body:
+[{"ID":1,"Author":"Confucius","Quote":"Life is simple, but we insist on making it complicated."}]
+
+
+=== DELETE http://localhost:8080/quotes/1 ===
+Status: 204
+Body:
+
+
+
+=== GET http://localhost:8080/quotes ===
+Status: 200
+Body:
+null
+
+```
 ## API
 
 Метод | Endpoint | Описание
@@ -42,11 +86,10 @@ DELETE| /quotes/{id} | Удалить цитату по ID
     - "8080:8080"
     ```
 
-
 ### Пример запроса
-```bash
-curl -X POST http://localhost:8080/quotes \\
--H "Content-Type: application/json" \\
--d '{"author":"Лев Толстой", "text":"Все думают изменить мир, но никто не думает изменить себя."}'
-```
+- ```bash
+  curl -X POST http://localhost:8080/quotes \\
+  -H "Content-Type: application/json" \\
+  -d '{"author":"Лев Толстой", "text":"Все думают изменить мир, но никто не думает изменить себя."}'
+  ```
 
