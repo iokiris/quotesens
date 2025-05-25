@@ -11,19 +11,17 @@ const (
 	ErrTypeForbidden              // 403
 )
 
+var errorTypeToHTTPCode = map[ErrorType]int{
+	ErrTypeInvalidInput: http.StatusBadRequest,
+	ErrTypeNotFound:     http.StatusNotFound,
+	ErrTypeConflict:     http.StatusConflict,
+	ErrTypeUnauthorized: http.StatusUnauthorized,
+	ErrTypeForbidden:    http.StatusForbidden,
+}
+
 func MapErrorTypeToHTTPCode(t ErrorType) int {
-	switch t {
-	case ErrTypeInvalidInput:
-		return http.StatusBadRequest
-	case ErrTypeNotFound:
-		return http.StatusNotFound
-	case ErrTypeConflict:
-		return http.StatusConflict
-	case ErrTypeUnauthorized:
-		return http.StatusUnauthorized
-	case ErrTypeForbidden:
-		return http.StatusForbidden
-	default:
-		return http.StatusInternalServerError
+	if code, ok := errorTypeToHTTPCode[t]; ok {
+		return code
 	}
+	return http.StatusInternalServerError
 }

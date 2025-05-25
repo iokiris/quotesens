@@ -32,10 +32,10 @@ func (s *QuoteService) AddQuote(ctx context.Context, author, quote string) error
 	quote = strings.TrimSpace(quote)
 
 	if author == "" {
-		return exceptions.Err(exceptions.ErrTypeInvalidInput, "Автор должен быть указан.", nil)
+		return exceptions.Err(exceptions.ErrTypeInvalidInput, "Должен быть указан автор.", nil)
 	}
 	if quote == "" {
-		return exceptions.Err(exceptions.ErrTypeInvalidInput, "Цитата должна быть указана.", nil)
+		return exceptions.Err(exceptions.ErrTypeInvalidInput, "Должна быть указана цитата.", nil)
 	}
 	return s.repo.AddQuote(ctx, author, quote)
 }
@@ -54,7 +54,7 @@ func (s *QuoteService) GetRandom(ctx context.Context) (model.Quote, error) {
 func (s *QuoteService) GetByAuthor(ctx context.Context, author string) ([]model.Quote, error) {
 	author = strings.TrimSpace(author)
 	if author == "" {
-		return nil, exceptions.Err(exceptions.ErrTypeInvalidInput, "Автор должен быть указан.", nil)
+		return nil, exceptions.Err(exceptions.ErrTypeInvalidInput, "Должен быть указан автор.", nil)
 	}
 	return s.repo.GetByAuthor(ctx, author)
 }
